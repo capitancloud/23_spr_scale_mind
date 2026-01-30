@@ -1,21 +1,23 @@
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { SystemStatus } from '@/types/simulation';
 
 /**
  * SYSTEM GAUGE COMPONENT
  * 
- * Indicatore circolare che mostra lo stato generale del sistema.
- * Visualizza CPU, memoria o altri valori percentuali con animazioni.
+ * Indicatore circolare animato che mostra lo stato generale del sistema.
+ * Include animazioni fluide e effetti glow.
  */
 
 interface SystemGaugeProps {
-  value: number; // 0-100
+  value: number;
   label: string;
   status: SystemStatus;
   size?: 'sm' | 'md' | 'lg';
+  tooltip?: string;
 }
 
-export function SystemGauge({ value, label, status, size = 'md' }: SystemGaugeProps) {
+export function SystemGauge({ value, label, status, size = 'md', tooltip }: SystemGaugeProps) {
   const sizes = {
     sm: { container: 'w-20 h-20', stroke: 6, text: 'text-lg', label: 'text-[10px]' },
     md: { container: 'w-28 h-28', stroke: 8, text: 'text-2xl', label: 'text-xs' },
@@ -26,25 +28,24 @@ export function SystemGauge({ value, label, status, size = 'md' }: SystemGaugePr
   
   const colors = {
     healthy: {
-      stroke: 'stroke-success',
+      stroke: 'hsl(160, 84%, 40%)',
       text: 'text-success',
-      glow: 'drop-shadow-[0_0_8px_hsl(160,84%,40%)]'
+      glow: '0 0 20px hsl(160, 84%, 40%, 0.5)'
     },
     warning: {
-      stroke: 'stroke-warning',
+      stroke: 'hsl(35, 100%, 50%)',
       text: 'text-warning',
-      glow: 'drop-shadow-[0_0_8px_hsl(35,100%,50%)]'
+      glow: '0 0 25px hsl(35, 100%, 50%, 0.5)'
     },
     critical: {
-      stroke: 'stroke-destructive',
+      stroke: 'hsl(0, 85%, 55%)',
       text: 'text-destructive',
-      glow: 'drop-shadow-[0_0_12px_hsl(0,85%,55%)]'
+      glow: '0 0 30px hsl(0, 85%, 55%, 0.6)'
     }
   };
   
   const colorConfig = colors[status];
   
-  // Calcola il circumference e offset per il progresso circolare
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (value / 100) * circumference;
@@ -62,35 +63,52 @@ export function SystemGauge({ value, label, status, size = 'md' }: SystemGaugePr
           className="stroke-muted"
         />
         
-        {/* Progress ring */}
-        <circle
+        {/* Progress ring animato */}
+        <motion.circle
           cx="50"
           cy="50"
           r={radius}
           fill="none"
           strokeWidth={sizeConfig.stroke}
           strokeLinecap="round"
-          className={cn(
-            colorConfig.stroke,
-            colorConfig.glow,
-            'transition-all duration-500'
-          )}
-          style={{
-            strokeDasharray: circumference,
-            strokeDashoffset: offset
+          stroke={colorConfig.stroke}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ 
+            strokeDashoffset: offset,
+            filter: `drop-shadow(${colorConfig.glow})`
           }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{ strokeDasharray: circumference }}
         />
       </svg>
       
+      {/* Glow effect per stati critici */}
+      {status === 'critical' && (
+        <motion.div
+          animate={{ 
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ duration: 1, repeat: Infinity }}
+          className="absolute inset-0 rounded-full bg-destructive/10 blur-md"
+        />
+      )}
+      
       {/* Center content */}
       <div className="flex flex-col items-center justify-center z-10">
-        <span className={cn(
-          'font-bold font-mono tabular-nums transition-colors duration-300',
-          sizeConfig.text,
-          colorConfig.text
-        )}>
+        <motion.span 
+          key={value}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          className={cn(
+            'font-bold font-mono tabular-nums',
+            sizeConfig.text,
+            colorConfig.text
+          )}
+        >
           {value}%
-        </span>
+        </motion.span>
         <span className={cn(
           'text-muted-foreground uppercase tracking-wider',
           sizeConfig.label
@@ -98,6 +116,13 @@ export function SystemGauge({ value, label, status, size = 'md' }: SystemGaugePr
           {label}
         </span>
       </div>
+      
+      {/* Tooltip */}
+      {tooltip && (
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-muted-foreground whitespace-nowrap">
+          {tooltip}
+        </div>
+      )}
     </div>
   );
 }
