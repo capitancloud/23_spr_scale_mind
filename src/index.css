@@ -2,95 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ScaleMind Design System - Futuristic Tech Dashboard */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
+    /* Dark futuristic theme */
+    --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222 47% 10%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 47% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Cyan/Teal primary - represents "healthy" state */
+    --primary: 180 100% 50%;
+    --primary-foreground: 222 47% 6%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    /* Purple secondary for accent */
+    --secondary: 260 60% 50%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 222 30% 18%;
+    --muted-foreground: 215 20% 55%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    /* Teal accent */
+    --accent: 170 80% 45%;
+    --accent-foreground: 222 47% 6%;
 
-    --destructive: 0 62.8% 30.6%;
+    /* Warning/Bottleneck colors */
+    --warning: 35 100% 50%;
+    --warning-foreground: 222 47% 6%;
+    
+    --destructive: 0 85% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Success/Healthy */
+    --success: 160 84% 40%;
+    --success-foreground: 222 47% 6%;
+
+    --border: 222 30% 20%;
+    --input: 222 30% 15%;
+    --ring: 180 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(180 100% 50%), hsl(200 100% 50%));
+    --gradient-warning: linear-gradient(135deg, hsl(35 100% 50%), hsl(15 100% 50%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 85% 55%), hsl(330 80% 50%));
+    --gradient-card: linear-gradient(180deg, hsl(222 47% 12%), hsl(222 47% 8%));
+    --gradient-glow: radial-gradient(ellipse at center, hsl(180 100% 50% / 0.15), transparent 70%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 30px -5px hsl(180 100% 50% / 0.3);
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.4);
+    --shadow-warning: 0 0 30px -5px hsl(35 100% 50% / 0.4);
+    --shadow-danger: 0 0 30px -5px hsl(0 85% 55% / 0.4);
+
+    /* Sidebar - keeping defaults */
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 30% 18%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 30% 20%;
+    --sidebar-ring: 180 100% 50%;
   }
 }
 
@@ -100,6 +81,177 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Glass card effect */
+  .glass-card {
+    @apply relative overflow-hidden rounded-xl border border-white/10;
+    background: linear-gradient(180deg, hsl(222 47% 12% / 0.8), hsl(222 47% 8% / 0.9));
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, hsl(180 100% 50% / 0.02), transparent);
+    pointer-events: none;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-warning {
+    box-shadow: var(--shadow-warning);
+  }
+
+  .glow-danger {
+    box-shadow: var(--shadow-danger);
+  }
+
+  /* Status indicators */
+  .status-healthy {
+    @apply bg-success text-success-foreground;
+  }
+
+  .status-warning {
+    @apply bg-warning text-warning-foreground;
+  }
+
+  .status-critical {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  /* Animated pulse for indicators */
+  .pulse-healthy {
+    animation: pulse-healthy 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .pulse-warning {
+    animation: pulse-warning 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .pulse-danger {
+    animation: pulse-danger 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Grid background pattern */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(to right, hsl(222 30% 20% / 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(222 30% 20% / 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-warning {
+    background: var(--gradient-warning);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  @keyframes pulse-healthy {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 hsl(160 84% 40% / 0.4);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 0 8px hsl(160 84% 40% / 0);
+    }
+  }
+
+  @keyframes pulse-warning {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 hsl(35 100% 50% / 0.4);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 0 8px hsl(35 100% 50% / 0);
+    }
+  }
+
+  @keyframes pulse-danger {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 hsl(0 85% 55% / 0.4);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 0 12px hsl(0 85% 55% / 0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes data-flow {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-data-flow {
+    animation: data-flow 2s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(180 100% 50% / 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
   }
 }
